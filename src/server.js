@@ -4,7 +4,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import blogsRouter from "./services/blogs/index.js";
 import authorsRouter from "./services/authors/index.js";
-import { notFoundErrorHandler, badRequestErrorHandler, catchAllErrorHandler } from "./errorMiddlewares.js";
+import { notFoundErrorHandler, badRequestErrorHandler, catchAllErrorHandler, unAuthorizedHandler, forbiddenHandler } from "./errorMiddlewares.js";
 
 const server = express();
 const port = process.env.PORT || 3002
@@ -22,6 +22,8 @@ server.use("/authors", authorsRouter)
 // ****************** ERROR HANDLERS ***********************
 
 server.use(badRequestErrorHandler)
+server.use(unAuthorizedHandler)
+server.use(forbiddenHandler)
 server.use(notFoundErrorHandler)
 server.use(catchAllErrorHandler)
 
